@@ -30,7 +30,7 @@ Install-Package Naxam.iZettle.iOS
 
 ### 2. Setup external accessory protocols in info.plist
 
-Add/modify the property "Supported external accessory protocols" and add *com.miura.shuttle.izettle*
+Add/modify the property "Supported external accessory protocols" and add *com.miura.shuttle.izettle* and *com.izettle.cardreader-one*
 
 This is what it should look like in the "source code" view of your info.plist:
 
