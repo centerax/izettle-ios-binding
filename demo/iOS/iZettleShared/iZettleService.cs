@@ -27,7 +27,7 @@ namespace iZettleShared.iOS
 
             var nativeAmount = new NSDecimalNumber(amount.ToString());
 
-            iZettleSDK.Shared.ChargeAmount(nativeAmount, currency, reference, viewController, (iZettleSDKPaymentInfo paymentInfo, NSError error) =>
+            iZettleSDK.Shared.ChargeAmount(nativeAmount, false, reference, viewController, (iZettleSDKPaymentInfo paymentInfo, NSError error) =>
 			{
                 if (error != null) {
                     //TODO Set descriptive exception

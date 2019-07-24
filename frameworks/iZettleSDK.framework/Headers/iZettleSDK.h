@@ -16,30 +16,40 @@ typedef void(^iZettleSDKOperationCompletion)(iZettleSDKPaymentInfo * _Nullable p
 @property (nonatomic, readonly) NSString *version;
 
 + (iZettleSDK *)shared;
-- (void)startWithAPIKey:(NSString *)apiKey;
+- (void)startWithAPIKey:(NSString *)APIKey
+NS_SWIFT_NAME(start(with:));
 
 /// If set only an iZettle user with this account will be allowed to be logged in.
 @property (nonatomic, copy, nullable) NSString *enforcedUserAccount;
-
-/// Returns YES if there is an active logged-in account
-/// If enforcedUserAccount is set, it will return YES only if the enforcedUserAccount is active
-@property (nonatomic, readonly) BOOL hasActiveAccount;
 
 @end
 
 @interface iZettleSDK (Operations)
 
-/// Perform a payment with an amount and a reference.
-/// @param amount:      The amount to be charged in the logged in users currency.
-/// @param currency:    Only used for validation. If the value of this parameter doesn't match the users currency the user will be notified and then logged out. For a complete list of valid currency codes, see ISO 4217 (Optional)
-/// @param reference:   The payment reference. Used to identify an iZettle payment, used when retrieving payment information at a later time or performing a refund. Max length 128. (Optional)
-/// @param viewController:  A controller from which iZettle will present its UI.
-/// @param completion:  Completion handler that will be called when the operation finishes.
+/**
+ Logout current account
+ */
+- (void)logout;
+
+/**
+ Perform a payment with an amount and a reference.
+
+ @param amount The amount to be charged in the logged in users currency
+ @param enableTipping Enable tipping flow
+ @param reference The payment reference. Used to identify an iZettle payment, used when retrieving payment
+    information at a later time or performing a refund. Max length 128. (Optional)
+ @param viewController A controller from which iZettle will present its UI
+ @param completion Completion handler that will be called when the operation finishes
+ 
+ @remark Enabling tipping does not guarantee that tipping flow will be displayed. Tipping flow will only be displayed
+ for logged in account and active reader supports tipping.
+ */
 - (void)chargeAmount:(NSDecimalNumber *)amount
-            currency:(nullable NSString *)currency
+       enableTipping:(BOOL)enableTipping
            reference:(nullable NSString *)reference
 presentFromViewController:(UIViewController *)viewController
-          completion:(iZettleSDKOperationCompletion)completion;
+          completion:(iZettleSDKOperationCompletion)completion
+NS_SWIFT_NAME(charge(amount:enableTipping:reference:presentFrom:completion:));
 
 /// Refund an amount from a payment with a given reference.
 /// @param amount:          The amount to be refunded from the payment (Optional, `nil` will refund full amount of original payment)
@@ -51,7 +61,8 @@ presentFromViewController:(UIViewController *)viewController
 ofPaymentWithReference:(NSString *)reference
      refundReference:(nullable NSString *)refundReference
 presentFromViewController:(UIViewController *)viewController
-          completion:(iZettleSDKOperationCompletion)completion;
+          completion:(iZettleSDKOperationCompletion)completion
+NS_SWIFT_NAME(refund(amount:ofPayment:withRefundReference:presentFrom:completion:));;
 
 /// Query iZettle for payment information of a payment with a given reference.
 /// @param reference:       The payment reference to query.
@@ -59,11 +70,13 @@ presentFromViewController:(UIViewController *)viewController
 /// @param completion:      Completion handler that will be called when the operation finishes.
 - (void)retrievePaymentInfoForReference:(NSString *)reference
               presentFromViewController:(UIViewController *)viewController
-                             completion:(iZettleSDKOperationCompletion)completion;
+                             completion:(iZettleSDKOperationCompletion)completion
+NS_SWIFT_NAME(retrievePaymentInfo(for:presentFrom:completion:));
 
 /// Present iZettle settings view. The user can switch account, access the iZettle FAQ, view card reader settings etc.
 /// @param viewController:  A controller from which iZettle will present its UI.
-- (void)presentSettingsFromViewController:(UIViewController *)viewController;
+- (void)presentSettingsFromViewController:(UIViewController *)viewController
+NS_SWIFT_NAME(presentSettings(from:));
 
 /// Attempt aborting the ongoing operation. Only use this if absolutely necessary. The state of the payment will be unknown to the user after this call.
 - (void)abortOperation;
@@ -93,6 +106,10 @@ presentFromViewController:(UIViewController *)viewController
 // Only used for certain markets
 @property (nonatomic, readonly, nullable) NSNumber *numberOfInstallments;
 @property (nonatomic, readonly, nullable) NSDecimalNumber *installmentAmount;
+
+// Only used for Mexico
+@property (nonatomic, readonly, nullable) NSString *mxFIID;
+@property (nonatomic, readonly, nullable) NSString *mxCardType;
 
 @end
 
