@@ -1,3 +1,63 @@
+2.2 - 2019-07-11
+- Background update of `iZettle Reader` and iZettle Reader 2` software: 
+    Updating card reader software is now done automatically in the background by the SDK
+    when time permits
+- Improved handling when re-connection to a card reader
+- Bug fixes and performance improvements
+
+2.1 - 2019-05-15
+- Improved reader software update flow
+- Removed support for iOS 8
+- Deprecated `currency` parameter in the `charge(amount:_)` method
+- Added ability to logout currently logged in account programmatically
+- Streamlined signature flow UI
+- Bug fixes and performance improvements
+
+2.0.5 - 2019-03-20
+- Crash in payment flow due to bluetooth connection lost after card was read #10100
+- Increase reader discovery interval up to 20 sec in UI flows
+
+2.0.4 - 2018-12-13
+- Present iZettle Reader 2 pairing wizard from payment flow
+
+2.0.3 - 2018-11-30
+- Fixed an issue where card reader might not be displayed in SDK settings after pairing
+
+2.0.2 - 2018-11-27
+- Remove ability to pair iZettle Reader 2 when using iOS 9. This produced a crash in earlier versions of the SDK. Related issue: #228
+- Fixed an issue where setting `enforcedAccount` property would result in requesting logins for each SDK operation. Related issues: #207, #225
+
+2.0.1 - 2018-11-09
+- Fixed an issue where iZettleTransport framework was not linked with Cocoapods
+
+2.0 - 2018-11-08
+- Added support for iZettle Reader 2
+- Added support for in-app pairing flow for iZettle Reader 2
+- Added support for wake-up/sleep behaviour with iZettle Reader 2
+- Fixed an issue where usage of `NSDateFormatter` produced a memory leak
+- Fixed a issue that could occur when disconnecting card readers on iOS 9 devices
+- Other stability improvements and bug fixes
+
+1.7.1 - 2018-04-04
+- Support for tipping with iZettle Reader
+- iOS 11 bug fixes
+- Better support for Swift programming language
+- Stability improvements
+
+1.6.2 - 2018-02-05
+- Added a prefix to NSDictionary `dateForKey:` extension
+
+1.6.1 - 2017-09-22
+- Fix an issue with "unsupported url" message shown during payment flow
+
+1.6 - 2017-09-15
+- Stability improvements
+- iOS 11 support and fixes
+
+v1.5 - 2017-07-24
+- Stability improvements
+- Add support for PIN bypass on supported readers
+
 v1.4.2 - 2017-02-14
 - Updated deploy targets on frameworks to be 8.0 (instead of the incorrect 9.0)
 - Fixed a UI glitch when retrieving info about a payment
