@@ -37,23 +37,31 @@ namespace iZettle
 	[BaseType (typeof(iZettleSDK))]
 	interface iZettleSDK_Operations
 	{
-		// -(void)chargeAmount:(NSDecimalNumber * _Nonnull)amount currency:(NSString * _Nullable)currency reference:(NSString * _Nullable)reference presentFromViewController:(UIViewController * _Nonnull)viewController completion:(iZettleSDKOperationCompletion _Nonnull)completion;
-		[Export ("chargeAmount:currency:reference:presentFromViewController:completion:")]
-		void ChargeAmount (NSDecimalNumber amount, [NullAllowed] string currency, [NullAllowed] string reference, UIViewController viewController, iZettleSDKOperationCompletion completion);
+        // -(void)chargeAmount:(NSDecimalNumber *)amount enableTipping:(BOOL)enableTipping reference:(nullable NSString *)reference presentFromViewController:(UIViewController *)viewController completion:(iZettleSDKOperationCompletion)completion
+		[Export ("chargeAmount:enableTipping:reference:presentFromViewController:completion:")]
+		void ChargeAmount (NSDecimalNumber amount, [NullAllowed] bool enableTipping, [NullAllowed] string reference, UIViewController viewController, iZettleSDKOperationCompletion completion);
 
-		// -(void)refundAmount:(NSDecimalNumber * _Nullable)amount ofPaymentWithReference:(NSString * _Nonnull)reference refundReference:(NSString * _Nullable)refundReference presentFromViewController:(UIViewController * _Nonnull)viewController completion:(iZettleSDKOperationCompletion _Nonnull)completion;
-		[Export ("refundAmount:ofPaymentWithReference:refundReference:presentFromViewController:completion:")]
+        // -(void)chargeAmount:(NSDecimalNumber * _Nonnull)amount currency:(NSString * _Nullable)currency reference:(NSString * _Nullable)reference presentFromViewController:(UIViewController * _Nonnull)viewController completion:(iZettleSDKOperationCompletion _Nonnull)completion;
+        //[Export ("chargeAmount:currency:reference:presentFromViewController:completion:")]
+		//void ChargeAmount (NSDecimalNumber amount, [NullAllowed] string currency, [NullAllowed] string reference, UIViewController viewController, iZettleSDKOperationCompletion completion);
+
+        // -(void)refundAmount:(NSDecimalNumber * _Nullable)amount ofPaymentWithReference:(NSString * _Nonnull)reference refundReference:(NSString * _Nullable)refundReference presentFromViewController:(UIViewController * _Nonnull)viewController completion:(iZettleSDKOperationCompletion _Nonnull)completion;
+        // -(void)refundAmount:(nullable NSDecimalNumber *)amount ofPaymentWithReference:(NSString *)reference refundReference:(nullable NSString *)refundReference presentFromViewController:(UIViewController *)viewController completion:(iZettleSDKOperationCompletion)completion
+        [Export ("refundAmount:ofPaymentWithReference:refundReference:presentFromViewController:completion:")]
 		void RefundAmount ([NullAllowed] NSDecimalNumber amount, string reference, [NullAllowed] string refundReference, UIViewController viewController, iZettleSDKOperationCompletion completion);
 
 		// -(void)retrievePaymentInfoForReference:(NSString * _Nonnull)reference presentFromViewController:(UIViewController * _Nonnull)viewController completion:(iZettleSDKOperationCompletion _Nonnull)completion;
+        // -(void)retrievePaymentInfoForReference:(NSString *)reference presentFromViewController:(UIViewController *)viewController completion:(iZettleSDKOperationCompletion)completion
 		[Export ("retrievePaymentInfoForReference:presentFromViewController:completion:")]
 		void RetrievePaymentInfoForReference (string reference, UIViewController viewController, iZettleSDKOperationCompletion completion);
 
 		// -(void)presentSettingsFromViewController:(UIViewController * _Nonnull)viewController;
+        // -(void)presentSettingsFromViewController:(UIViewController *)viewController
 		[Export ("presentSettingsFromViewController:")]
 		void PresentSettingsFromViewController (UIViewController viewController);
 
 		// -(void)abortOperation;
+        // -(void)abortOperation;
 		[Export ("abortOperation")]
 		void AbortOperation ();
 	}
